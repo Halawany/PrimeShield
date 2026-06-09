@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./PrimeShield
+      dockerfile: Dockerfile
+    volumes:
+      - ./PrimeShield:/usr/src/app:cached
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
+
+  backend:
+    build:
+      context: ./primeshield_backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./primeshield_backend:/app:cached
+      - ./primeshield_backend/db.sqlite3:/app/db.sqlite3
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.dev
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - frontend
