@@ -9,7 +9,7 @@ This repository includes a `docker-compose.yml` file to run both the frontend an
 
 ## Start with Docker
 
-From the project root (`c:\Users\Halawany\Desktop\Projects\prime`), run:
+ run:
 
 ```bash
 docker compose up --build
